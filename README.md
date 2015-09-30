@@ -20,12 +20,12 @@ Install node and npm: sudo apt-get install nodejs npm
 Getting and testing the code
 * Open a terminal
 * Go to a directory where you want this source code
-* Run 'git clone https://github.com/acken/outbox-workshop.git'
+* Run: git clone https://github.com/acken/outbox-workshop.git
 * cd into the service directory
-* Run 'npm install'
+* Run: npm install
 * You can now start the application with
-    * Windows: 'set DEBUG=service & npm start'
-    * Mac OSX / Linux: 'DEBUG=service npm start'
+    * Windows run: set DEBUG=service & npm start
+    * Mac OSX / Linux run: DEBUG=service npm start
 * Visit in a browser: http://localhost:3031/Kampala
 
 If everything works you should get a greeting in json format in your browser. If not Post an issue at https://github.com/acken/outbox-workshop/issues and I'll help you out.
