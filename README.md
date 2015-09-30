@@ -1,7 +1,5 @@
 # Workshop at Outbox the 7th of October 2015
 
-The instructions and source code for this workshop will be published by the 3rd of October
-
 ## Prerequisites
 
 For working with this code you need node an npm installed. Below are instructions for getting this application up and running on your machine.
