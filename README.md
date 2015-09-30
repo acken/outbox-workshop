@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-For working with this code you need node an npm installed. Below are instructions for getting this application up and running on your machine.
+For working with this code you need node and npm installed. Below are instructions for getting this application up and running on your machine.
 
 Install git: https://confluence.atlassian.com/bitbucket/set-up-git-744723531.html
 
@@ -10,10 +10,10 @@ Install git: https://confluence.atlassian.com/bitbucket/set-up-git-744723531.htm
 Install node and npm: http://blog.teamtreehouse.com/install-node-js-npm-windows
 
 ### Mac OSX
-To install node and npm: http://coolestguidesontheplanet.com/installing-node-js-on-osx-10-10-yosemite/
+Install node and npm: http://coolestguidesontheplanet.com/installing-node-js-on-osx-10-10-yosemite/
 
 ### Linux (Ubuntu)
-sudo apt-get install nodejs npm
+Install node and npm: sudo apt-get install nodejs npm
 
 ## Preparing and testing the code
 
