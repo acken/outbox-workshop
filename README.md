@@ -28,4 +28,4 @@ Getting and testing the code
     * Mac OSX / Linux run: DEBUG=service npm start
 * Visit in a browser: http://localhost:3031/Kampala
 
-If everything works you should get a greeting in json format in your browser. If not Post an issue at https://github.com/acken/outbox-workshop/issues and I'll help you out.
+If everything works you should get a greeting in json format in your browser. If not write me an issue at https://github.com/acken/outbox-workshop/issues and I'll help you out.
