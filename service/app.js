@@ -32,6 +32,60 @@ app.get('/:name', function (req, res) {
     res.send({greeting: "hello " + req.params.name});
 });
 
+// Queue service
+var items = [];
+app.post('/items', function (req, res) {
+    items.push(req.body);
+};
+app.get('/items/pop', function (req, res) {
+    res.status(200).send(items.pop());
+});
+
+// Sms receiver - calls next service directly
+var request = require('request');
+app.post('/sms', function (req, res) {
+    if (!req.body.sender || !req.body.message) {
+        res.status(406).send('Requires {"sender": "phone number", "message": "text message"}');
+        return;
+    }
+    var receiver = "http://localhost:3031/items";
+    var body = { form: req.body };
+    console.log(body);
+    request.post(receiver, body, function (err, response, body) {
+        if (err || response.statusCode != 200) { 
+            res.status(500).send(err);
+            return;
+        }
+        res.status(200).send({});
+    });
+})
+
+// Sms handler
+app.post('/weather/sms', function (req, res) {
+    console.log(req.body);
+    if (!req.body.sender || !req.body.message) {
+        res.status(406).send('Requires {"sender": "phone number", "message": "text message"}');
+        return;
+    }
+    var receiver = "http://localhost:3031/weather/kampala";
+    request.get(receiver, function (err, response, body) {
+        if (err || response.statusCode != 200) { 
+            res.status(500).send(err);
+            return;
+        }
+        res.status(200).send(body);
+    });
+});
+
+// Weather service
+app.get('/weather:city', function (req, res) {
+    if (req.params.city === 'kampala') {
+        res.status(200).send({temperature: 28});
+    } else {
+        res.sendStatus(404);
+    }
+});
+
 //////////////////////////////////////
 
 // catch 404 and forward to error handler
