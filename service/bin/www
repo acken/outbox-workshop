@@ -100,6 +100,5 @@ function onListening() {
     }
   };
   request.post("http://"+discoveryService+":3032/discovery/register", service, function (err, res, body) {
-      console.log(body);
   });
 }
