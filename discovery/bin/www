@@ -5,19 +5,14 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('service:server');
+var debug = require('debug')('discovery:server');
 var http = require('http');
-var request = require('request');
-var ip = require('ip');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var discoveryService = "localhost";
-var serviceType = "handler";
-var serviceName = "My handler";
-var port = normalizePort(process.env.PORT || '3031');
+var port = normalizePort(process.env.PORT || '3032');
 app.set('port', port);
 
 /**
@@ -92,14 +87,4 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  var service = {
-    form: {
-        type: serviceType,
-        name: serviceName,
-        heartbeat: "http://"+ip.address()+":"+addr.port+"/heartbeat"
-    }
-  };
-  request.post("http://"+discoveryService+":3032/discovery/register", service, function (err, res, body) {
-      console.log(body);
-  });
 }

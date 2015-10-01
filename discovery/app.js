@@ -5,7 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var tasksProcessedCount = 0;
+var routes = require('./routes/index');
+var discovery = require('./routes/discovery');
+var services = require('./services/handler.js');
+
 var app = express();
 
 // view engine setup
@@ -20,19 +23,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/heartbeat', function (req, res) {
-    tasksProcessedCount++;
-    res.send({tasksProcessed: tasksProcessedCount});
-})
-
-///////////////////////////////////////
-// Routes goes here
-
-app.get('/:name', function (req, res) {
-    res.send({greeting: "hello " + req.params.name});
-});
-
-//////////////////////////////////////
+app.use('/', routes);
+app.use('/discovery', discovery);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,6 +34,7 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
+
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
