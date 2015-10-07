@@ -7,7 +7,12 @@ function find(name, response) {
             console.log(err);
             response([]);
         }
-        response(JSON.parse(body));
+        try {
+            var o = JSON.parse(body);
+            response(o);
+        } catch (ex) {
+            response([]);
+        }
     });
 }
 

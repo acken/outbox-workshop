@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../main');
+var app = require('../app');
 var debug = require('debug')('service:server');
 var http = require('http');
 var request = require('request');
@@ -15,6 +15,9 @@ var config = require('../config');
  * Get port from environment and store in Express.
  */
 
+var discoveryService = "localhost";
+var serviceType = "smsgateway";
+var serviceName = "My handler";
 var port = normalizePort(process.env.PORT || '3031');
 app.set('port', port);
 
