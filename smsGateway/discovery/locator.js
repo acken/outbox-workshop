@@ -2,7 +2,7 @@ var request = require('request');
 var config = require('../config.js');
 
 function find(name, response) {
-    request.get("http://"+config.discoveryService+":3032/discovery/"+name, function (err,res, body) {
+    request.get(config.discoveryService+"/discovery/"+name, function (err,res, body) {
         if (err) {
             console.log(err);
             response([]);

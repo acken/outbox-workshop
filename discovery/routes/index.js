@@ -11,7 +11,8 @@ module.exports = function (app) {
           title: 'Service Discovery',
           url: address,
           alive: services.get(),
-          failing: services.getFailing()
+          failing: services.getFailing(),
+          reported: services.getReported()
       });
     });
     return router;

@@ -2,7 +2,7 @@ var request = require('request');
 var config = require('../config.js');
 
 function find(name, response) {
-    request.get("http://"+config.discoveryService+":3032/discovery/"+name, function (err,res, body) {
+    request.get(config.discoveryService+"/discovery/"+name, function (err,res, body) {
         if (err) {
             console.log(err);
             response([]);
@@ -38,5 +38,19 @@ module.exports = {
                 res(null);
             }
         }); 
+    },
+    report: function (type, url, reason) {
+        var body = {
+            form: {
+                type: type,
+                url: url,
+                reason: reason
+            }
+        };
+        request.post(config.discoveryService+"/discovery/report", body, function (err, res, body) {
+            if (err) {
+                console.log(err);
+            }
+        });
     }
 }

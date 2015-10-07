@@ -33,6 +33,9 @@ app.get('/heartbeat', function (req, res) {
 function handleItem(url, queueUrl, item) {
     request.get(url+"/weather/"+item.message, function (err, response, body) {
         if (err || response.statusCode != 200) { 
+            tasksStarted--;
+            discovery.report('weather', url, err);
+            console.log('At this point we are just stealing peoples money');
             return;
         }
         var temperature = JSON.parse(body).temperature;
@@ -47,23 +50,26 @@ function handleItem(url, queueUrl, item) {
 
 function serve () {
     if (tasksStarted > 30) {
-        setTimeout(function () { serve(); }, 10);
+        setTimeout(function () { serve(); }, 100);
         return;
     }
     discovery.findOne("queue", function (queueUrl) {
         if (queueUrl === null) {
             console.log('queue service is gone!!!');
-            setTimeout(function () { serve(); }, 500);
+            setTimeout(function () { serve(); }, 1000);
             return;
         }
         discovery.findAny("weather", function (weatherUrl) {
             if (weatherUrl === null) {
                 console.log('no weather services available!!!');
-                setTimeout(function () { serve(); }, 500);
+                setTimeout(function () { serve(); }, 1000);
                 return;
             }
             request.get(queueUrl+"/items/pop", function (err, response, body) {
                 if (err || response.statusCode != 200 || !body) { 
+                    if (err) {
+                        discovery.report('queue', queueUrl, err);
+                    }
                     setTimeout(function () { serve(); }, 100);
                 } else {
                     tasksStarted++;

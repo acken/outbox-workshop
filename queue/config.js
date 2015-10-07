@@ -1,6 +1,6 @@
 
 var config = {
-    discoveryService: "localhost",
+    discoveryService: "http://localhost:3032",
     serviceType: "queue",
     serviceName: "Queueing service"
 };

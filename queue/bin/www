@@ -101,6 +101,6 @@ function onListening() {
         url: "http://"+ip.address()+":"+addr.port
     }
   };
-  request.post("http://"+config.discoveryService+":3032/discovery/register", service, function (err, res, body) {
+  request.post(config.discoveryService+"/discovery/register", service, function (err, res, body) {
   });
 }
