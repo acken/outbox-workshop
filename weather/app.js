@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var discovery = require('./discovery/locator.js');
 
 var tasksProcessedCount = 0;
 var app = express();
@@ -21,65 +22,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/heartbeat', function (req, res) {
-    tasksProcessedCount++;
     res.send({tasksProcessed: tasksProcessedCount});
 })
 
 ///////////////////////////////////////
 // Routes goes here
 
-app.get('/:name', function (req, res) {
-    res.send({greeting: "hello " + req.params.name});
-});
-
-// Queue service
-var items = [];
-app.post('/items', function (req, res) {
-    items.push(req.body);
-    res.status(200).send({});
-});
-app.get('/items/pop', function (req, res) {
-    res.status(200).send(items.pop());
-});
-app.post('/answers', function (req, res) {
-    console.log('telling '+req.body.sender+' that temperature is '+req.body.temperature);
-    res.status(200).send({});
-});
-
-// Sms receiver - calls next service directly
-var request = require('request');
-app.post('/sms', function (req, res) {
-    if (!req.body.sender || !req.body.message) {
-        res.status(406).send('Requires {"sender": "phone number", "message": "text message"}');
-        return;
-    }
-    var receiver = "http://localhost:3031/items";
-    var body = { form: req.body };
-    request.post(receiver, body, function (err, response, body) {
-        if (err || response.statusCode != 200) { 
-            res.status(500).send(err);
-            return;
-        }
-        res.status(200).send({});
-    });
-})
-
-// Sms handler
-app.post('/weather/sms', function (req, res) {
-    console.log(req.body);
-    if (!req.body.sender || !req.body.message) {
-        res.status(406).send('Requires {"sender": "phone number", "message": "text message"}');
-        return;
-    }
-    
-});
-
-// Weather service
-var xmlParser = require('xml2js').parseString;
 app.get('/weather/:city', function (req, res) {
     setTimeout(function () {
         var temp = Math.round(Math.random() * (40 - -20) + -20);
         res.status(200).send({temperature: temp});
+        tasksProcessedCount++;
     }, 500);
 });
 

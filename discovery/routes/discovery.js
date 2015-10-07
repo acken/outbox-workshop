@@ -11,4 +11,8 @@ router.post('/register', function(req, res, next) {
     res.status(200).send({});
 });
 
+router.get('/:name', function(req, res, nex) {
+    res.status(200).send(services.getByName(req.params.name));
+});
+
 module.exports = router;

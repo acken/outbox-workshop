@@ -9,13 +9,14 @@ var debug = require('debug')('service:server');
 var http = require('http');
 var request = require('request');
 var ip = require('ip');
+var config = require('../config');
 
 /**
  * Get port from environment and store in Express.
  */
 
 var discoveryService = "localhost";
-var serviceType = "handler";
+var serviceType = "smsgateway";
 var serviceName = "My handler";
 var port = normalizePort(process.env.PORT || '3031');
 app.set('port', port);
@@ -94,11 +95,12 @@ function onListening() {
   console.log('Listening on ' + bind);
   var service = {
     form: {
-        type: serviceType,
-        name: serviceName,
-        heartbeat: "http://"+ip.address()+":"+addr.port+"/heartbeat"
+        type: config.serviceType,
+        name: config.serviceName,
+        heartbeat: "http://"+ip.address()+":"+addr.port+"/heartbeat",
+        url: "http://"+ip.address()+":"+addr.port
     }
   };
-  request.post("http://"+discoveryService+":3032/discovery/register", service, function (err, res, body) {
+  request.post("http://"+config.discoveryService+":3032/discovery/register", service, function (err, res, body) {
   });
 }

@@ -7,7 +7,7 @@ var services = {
 };
 
 function has(services, service) {
-    return services.some(function (s) { return s.name == service.name && s.heartbeat == service.heartbeat; });
+    return services.some(function (s) { return s.type == service.type && s.url == service.url; });
 }
 
 setInterval(function () {
@@ -29,6 +29,9 @@ setInterval(function () {
                         var o = JSON.parse(body);
                         if (o.tasksProcessed !== undefined) {
                             s.tasksProcessed = o.tasksProcessed;
+                        }
+                        if (o.backlog !== undefined) {
+                            s.backlog = o.backlog;
                         }
                     } catch (ex) {
                         console.log(ex);
@@ -57,7 +60,20 @@ module.exports = {
         services.pending.push(service);
     },
     get: function () {
-        return services.active;
+        return services.active
+            .map(function (s) {
+                if (s.backlog === undefined) {
+                    s.backlog = "";
+                }
+                return s;
+            });
+    },
+    getByName: function (name) {
+        return services.active.filter(function (i) {
+            return i.type === name;
+        }).map(function (i) {
+            return i.url;
+        });
     },
     getFailing: function () {
         return services.unreachable;

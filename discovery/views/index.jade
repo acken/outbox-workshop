@@ -1,14 +1,17 @@
 extends layout
 
 block content
-  h1= title
+  h1= title+" - "+url
 
   p Active Services
   ul#alive
     each val in alive
-      li=val.type+" "+val.name+" "+val.heartbeat+" "+val.tasksProcessed
+      li=val.type+" "+val.name+" "+val.heartbeat+" "+val.tasksProcessed+" "+val.backlog
 
   p Failing Services
   ul#failing
     each val in failing
       li=val.type+" "+val.name+" "+val.heartbeat
+
+  script.
+    setTimeout(function () { window.location.reload(); }, 1000);
