@@ -21,11 +21,11 @@ Getting and testing the code
 * Open a terminal
 * Go to a directory where you want this source code
 * Run: git clone https://github.com/acken/outbox-workshop.git
-* cd into the service directory
+* In the terminal go into the handler directory
 * Run: npm install
 * You can now start the application with
-    * Windows run: set DEBUG=service & npm start
-    * Mac OSX / Linux run: DEBUG=service npm start
-* Visit in a browser: http://localhost:3031/Kampala
+    * Windows run: set DEBUG=handler & npm start
+    * Mac OSX / Linux run: DEBUG=handler npm start
+* If it says queue service not found you are good
 
 If everything works you should get a greeting in json format in your browser. If not write me an issue at https://github.com/acken/outbox-workshop/issues and I'll help you out.
