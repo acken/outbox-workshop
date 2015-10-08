@@ -29,3 +29,5 @@ Getting and testing the code
 * If it says queue service not found you are good
 
 If everything works you should get a greeting in json format in your browser. If not write me an issue at https://github.com/acken/outbox-workshop/issues and I'll help you out.
+
+You'll find more documentation in the wiki at https://github.com/acken/outbox-workshop/wiki
